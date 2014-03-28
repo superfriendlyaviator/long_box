@@ -1,0 +1,64 @@
+<h1>Current Collection</h1>
+
+<ul>
+  <% collection.sort_by{|comic| [ comic[:name], comic[:issue] ] }.each do |comic| %>
+    <li>
+    <%= comic[:name] %> -
+
+    Issue #<%= comic[:issue] %>:
+
+    <% if comic[:cover] %>
+      <%= comic[:cover] %> cover
+    <% end %>
+
+    ($<%= comic[:price] %>) 
+
+    <% if comic[:rating] %>
+      <%= comic[:rating] %> rated
+    <% else %>
+      not rated
+    <% end %>
+
+    </li>
+  <% end %>
+</ul>
+
+<h3>Add New Issue to Collection</h3>
+
+<form action="/comics/add" method="POST">
+  <div>
+    <label for="name">Name</label>
+    <input type="text" name="name" autofocus/>
+  </div>
+
+  <div>
+    <label for="issue">Issue</label>
+    <input type="number" name="issue" value="1" min="1"/>
+  </div>
+
+  <div>
+    <label for="price">Price</label>
+    <input type="number" name="price" step="0.01"/>
+  </div>
+
+  <div>
+    <label for="cover">Cover</label>
+    <input type="text" name="cover" placeholder='standard'/>
+  </div>
+
+  <div>
+    <label for="rating">Rating</label>
+    <select name="rating">
+      <option value="A">A</option>
+      <option value="B">B</option>
+      <option value="C">C</option>
+      <option value="D">D</option>
+      <option value="" selected>not rated</option>
+    </select>
+  </div>
+
+  <div>
+    <input type="submit"/>
+  </div>
+</form>
+
